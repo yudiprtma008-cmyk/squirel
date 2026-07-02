@@ -5,7 +5,6 @@ const http = require('http');
 const bot = new Telegraf(process.env.TELEGRAM_TOKEN);
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
-// Perintah Start
 bot.start((ctx) => {
     ctx.reply('Bot Milkshake Online dan Siap Digunakan!', {
         reply_markup: {
@@ -16,7 +15,6 @@ bot.start((ctx) => {
     });
 });
 
-// Server ringan untuk menjaga bot tetap bangun di Render
 const server = http.createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.end('Bot is running');
@@ -24,16 +22,6 @@ const server = http.createServer((req, res) => {
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-    console.log(`Server mendengarkan di port ${PORT}`);
-    // Menggunakan polling agar lebih mudah di Render gratis
-    bot.launch().then(() => {
-        console.log("Bot berhasil terhubung ke Telegram!");
-    }).catch((err) => {
-        console.error("Gagal terhubung:", err);
-    });
+    console.log("Server aktif di port " + PORT);
+    bot.launch().then(() => console.log("Bot berhasil terhubung!"));
 });
-
-// Menangani error agar tidak crash
-process.once('SIGINT', () => bot.stop('SIGINT'));
-process.once('SIGTERM', () => bot.stop('SIGTERM'));
-

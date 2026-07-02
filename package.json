@@ -1,1 +1,16 @@
-{"name":"bot-milkshake","version":"1.0.0","main":"bot.js","engines":{"node":"18.x"},"scripts":{"start":"node bot.js"},"dependencies":{"telegraf":"^4.12.2","@supabase/supabase-js":"^2.0.0","ws":"^8.13.0"}}
+{
+  "name": "bot-milkshake",
+  "version": "1.0.0",
+  "main": "bot.js",
+  "engines": {
+    "node": "18.x"
+  },
+  "scripts": {
+    "start": "node bot.js"
+  },
+  "dependencies": {
+    "telegraf": "^4.12.2",
+    "@supabase/supabase-js": "^2.0.0",
+    "ws": "^8.13.0"
+  }
+}

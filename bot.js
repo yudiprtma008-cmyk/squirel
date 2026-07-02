@@ -1,19 +1,25 @@
 const { Telegraf } = require('telegraf');
 const { createClient } = require('@supabase/supabase-js');
+const http = require('http');
 
-// Mengambil data dari variabel lingkungan (Railway)
 const bot = new Telegraf(process.env.TELEGRAM_TOKEN);
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
 bot.start((ctx) => {
-    ctx.reply('Halo! Klik tombol di bawah untuk membuka profil saya:', {
+    ctx.reply('Bot Milkshake Online! Klik di bawah:', {
         reply_markup: {
             inline_keyboard: [[
-                { text: "Buka Profil", web_app: { url: "URL_WEBSITE_ANDA_DISINI" } }
+                { text: "Buka Profil", web_app: { url: "https://google.com" } }
             ]]
         }
     });
 });
 
-bot.launch();
-console.log("Bot sudah berjalan...");
+// PENTING: Render mewajibkan server untuk mendengarkan port
+const server = http.createServer((req, res) => {
+    res.writeHead(200);
+    res.end('Bot aktif');
+});
+server.listen(process.env.PORT || 8080);
+
+bot.launch().then(() => console.log("Bot sudah jalan!"));
